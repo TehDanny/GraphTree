@@ -9,7 +9,7 @@ namespace GraphTree
     class GraphNode
     {
         public string Name;
-        bool Visited;
+        public bool Visited;
         public List<Edge> NeighborEdges;
 
         public GraphNode(string name)

@@ -9,10 +9,12 @@ namespace GraphTree
     class Graph
     {
         List<GraphNode> Nodes;
+        List<GraphNode> VisitedNodes;
 
         public Graph()
         {
             Nodes = new List<GraphNode>();
+            VisitedNodes = new List<GraphNode>();
         }
 
         public void AddNode(GraphNode node)
@@ -76,6 +78,52 @@ namespace GraphTree
             }
 
             return graphString;
+        }
+
+        public void ClearVisits()
+        {
+            for (int i = 0; i < Nodes.Count - 1; i++)
+            {
+                Nodes[i].Visited = false;
+            }
+        }
+
+        public string TraversalDepthFirstRecursive()
+        {
+            string traversal = string.Empty;
+
+            Nodes[0].Visited = true;
+            VisitedNodes.Add(Nodes[0]);
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+            TraversalDepthFirstRecursive(stack);
+
+            foreach (var item in VisitedNodes)
+            {
+                traversal += item.Name + ", ";
+            }
+
+            return traversal;
+        }
+
+        public Stack<int> TraversalDepthFirstRecursive(Stack<int> stack)
+        {
+            foreach (var item in Nodes[stack.Last()].NeighborEdges)
+            {
+                if (Nodes[item.IndexTo].Name == "Ringe")
+                {
+                    int test = 0;
+                }
+                if (Nodes[item.IndexTo].Visited == false)
+                {
+                    stack.Push(item.IndexTo);
+                    Nodes[item.IndexTo].Visited = true;
+                    VisitedNodes.Add(Nodes[item.IndexTo]);
+                    return TraversalDepthFirstRecursive(stack);
+                }
+            }
+            stack.Pop();
+            return stack;
         }
     }
 }

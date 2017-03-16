@@ -58,8 +58,12 @@ namespace GraphTree
             Edge edge13 = new Edge(7, 4, 56);
             graph.AddUndirectedNeighborEdge(edge13);
 
+            Console.WriteLine("Printed graph:");
             Console.WriteLine(graph.PrintGraph());
-            Console.Read();
+
+            Console.WriteLine("Depth first traversal: ");
+            Console.WriteLine(graph.TraversalDepthFirstRecursive());
+            Console.ReadLine();
         }
     }
 }
